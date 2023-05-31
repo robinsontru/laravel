@@ -9,7 +9,8 @@
         </button>
 
         <!-- Modal -->
-        <div class="modal " :class='{ show: modal }'>
+        <div class="modal fade " id="exampleModal" tabindex="-1"  :class='{ show: modal }' aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -19,31 +20,39 @@
                     </div>
                     <div class="modal-body">
                         <div>
-                            <label for="first_name">nombre
+                            <label for="first_name">nombre:
                                 <input v-model="contact.first_name" type="text" placeholder="Nombre del conctacto"
                                     id="first_name" class="from-control ">
                             </label>
+                            <br>
+                    <hr>
                         </div>
-                        <div>
-                            <label for="last_name">Apellido
+                        <div d >
+                            <label for="last_name">Apellido:
                                 <input v-model="contact.last_name" type="text" placeholder="Nombre del conctacto"
                                     id="last_name" class="from-control ">
                             </label>
+                            <br>
+                            <hr>
                         </div>
                         <div>
-                            <label for="email">Correo Eletronico
+                            <label for="email">Correo Eletronico:
                                 <input v-model="contact.email" type="text" placeholder="email del conctacto" id="email"
                                     class="from-control ">
                             </label>
+                            <br>
+                            <hr>
                         </div>
                         <div>
-                            <label for="phone">Telefono
+                            <label for="phone">Telefono:
                                 <input v-model="contact.phone" type="text" placeholder="Telefono del conctacto" id="phone"
                                     class="from-control ">
                             </label>
+                             <br>
+                             <hr>
                         </div>
                         <div>
-                            <label for="address ">Domicilio
+                            <label for="address ">Domicilio:
                                 <input v-model="contact.address" type="text" placeholder="Domicilio del conctacto"
                                     id="address " class="from-control ">
                             </label>
@@ -68,7 +77,6 @@
                     <th scope="col">Telefono</th>
                     <th scope="col">Domicilio</th>
                     <th scope="col" colspan="2" class="text-center">accion </th>
-
                 </tr>
             </thead>
             <tbody>
@@ -86,7 +94,6 @@
                         <button @click="update = true; openModal(contact)" type="button"
                             class="btn btn-info">editar</button>
                     </td>
-
                 </tr>
             </tbody>
         </table>
@@ -105,7 +112,7 @@ export default {
                 phone: '',
                 address: ''
             },
-            id:0,
+            id: 0,
             update: true,
             modal: 0,
             titleModal: '',
@@ -122,18 +129,18 @@ export default {
             this.list()
         },
         async guardar() {
-          if (this.update) {
-            const res=await axios.put('/contacts/' + this.id, this.contact)
-          } else {
-            const res = await axios.post('/contacts',this.contact)
-          }
-          this.closeModal();
-          this.list();
+            if (this.update) {
+                const res = await axios.put('/contacts/' + this.id, this.contact)
+            } else {
+                const res = await axios.post('/contacts', this.contact)
+            }
+            this.closeModal();
+            this.list();
         },
         openModal(data = {}) {
             this.modal = 1
             if (this.update) {
-                this.id=data.id
+                this.id = data.id
 
                 this.titleModal = "modificar contacto"
                 this.contact.first_name = data.first_name
@@ -144,7 +151,7 @@ export default {
 
             }
             else {
-                this.id=0
+                this.id = 0
                 this.titleModal = "crear contacto"
                 this.contact.first_name = ''
                 this.contact.last_name = ''
